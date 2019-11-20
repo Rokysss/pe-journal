@@ -3,22 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PEJournal"
+        xmlns:vm="clr-namespace:PEJournal.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="600">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
     <StackPanel Margin="8">
+        <StackPanel.Resources>
+            <Style TargetType="GroupBox">
+                <Setter Property="Padding" Value="4" />
+            </Style>
+        </StackPanel.Resources>
         
         <GroupBox Header="Обучающиеся">
-            <DataGrid>
+            <DataGrid ItemsSource="{Binding Path=Students}" AutoGenerateColumns="False" HeadersVisibility="Column"
+                      SelectedItem="{Binding Path=SelectedStudent}" SelectionMode="Single"
+                      CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ФИО" IsReadOnly="True" Width="*" />
-                    <DataGridTextColumn Header="Дата рождения" IsReadOnly="True" Width="*" />
+                    <DataGridTextColumn Header="ФИО" Binding="{Binding Path=FullName}" IsReadOnly="True" Width="*" />
+                    <DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=Birthday}" IsReadOnly="True" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
 
-        <GroupBox Header="Параметры" Margin="0,8" Padding="2">
-            <Grid>
+        <GroupBox Header="Параметры">
+            <Grid DataContext="{Binding Path=SelectedStudent}">
 
                 <Grid.Resources>
                     <Style TargetType="TextBox">
@@ -39,16 +49,16 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Content="Фамилия" Grid.Row="0" Grid.Column="0" />
-                <TextBox Grid.Row="0" Grid.Column="1" />
+                <TextBox Text="{Binding Path=LastName}" Grid.Row="0" Grid.Column="1" />
 
                 <Label Content="Имя" Grid.Row="1" Grid.Column="0" />
-                <TextBox Grid.Row="1" Grid.Column="1" />
+                <TextBox Text="{Binding Path=FirstName}" Grid.Row="1" Grid.Column="1" />
 
                 <Label Content="Отчество" Grid.Row="2" Grid.Column="0" />
-                <TextBox Grid.Row="2" Grid.Column="1" />
+                <TextBox Text="{Binding Path=MiddleName}" Grid.Row="2" Grid.Column="1" />
 
                 <Label Content="Дата рождения" Grid.Row="3" Grid.Column="0" />
-                <TextBox Grid.Row="3" Grid.Column="1" />
+                <DatePicker SelectedDate="{Binding Path=Birthday}" Grid.Row="3" Grid.Column="1" />
             </Grid>
         </GroupBox>
     </StackPanel>
