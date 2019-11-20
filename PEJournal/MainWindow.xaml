@@ -17,14 +17,22 @@
             </DataGrid>
         </GroupBox>
 
-        <GroupBox Header="Параметры" Margin="0,8">
+        <GroupBox Header="Параметры" Margin="0,8" Padding="2">
             <Grid>
+
+                <Grid.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                </Grid.Resources>
+                
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -39,7 +47,7 @@
                 <Label Content="Отчество" Grid.Row="2" Grid.Column="0" />
                 <TextBox Grid.Row="2" Grid.Column="1" />
 
-                <Label Grid.Row="3" Grid.Column="0" />
+                <Label Content="Дата рождения" Grid.Row="3" Grid.Column="0" />
                 <TextBox Grid.Row="3" Grid.Column="1" />
             </Grid>
         </GroupBox>
