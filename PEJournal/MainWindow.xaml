@@ -17,9 +17,9 @@
         </StackPanel.Resources>
         
         <GroupBox Header="Обучающиеся">
-            <DataGrid ItemsSource="{Binding Path=Students}" AutoGenerateColumns="False" HeadersVisibility="Column"
-                      SelectedItem="{Binding Path=SelectedStudent}" SelectionMode="Single"
-                      CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid ItemsSource="{Binding Path=Students, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"
+                      SelectedItem="{Binding Path=SelectedStudent, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+                      CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ФИО" Binding="{Binding Path=FullName}" IsReadOnly="True" Width="*" />
                     <DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=Birthday}" IsReadOnly="True" Width="*" />
@@ -27,39 +27,47 @@
             </DataGrid>
         </GroupBox>
 
-        <GroupBox Header="Параметры">
-            <Grid DataContext="{Binding Path=SelectedStudent}">
+        <GroupBox Header="Параметры обучающегося">
+            <StackPanel>
+                <Grid DataContext="{Binding Path=SelectedStudent}">
 
-                <Grid.Resources>
-                    <Style TargetType="TextBox">
-                        <Setter Property="VerticalAlignment" Value="Center" />
-                    </Style>
-                </Grid.Resources>
+                    <Grid.Resources>
+                        <Style TargetType="TextBox">
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </Grid.Resources>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Фамилия" Grid.Row="0" Grid.Column="0" />
+                    <TextBox Text="{Binding Path=LastName}" Grid.Row="0" Grid.Column="1" />
+
+                    <Label Content="Имя" Grid.Row="1" Grid.Column="0" />
+                    <TextBox Text="{Binding Path=FirstName}" Grid.Row="1" Grid.Column="1" />
+
+                    <Label Content="Отчество" Grid.Row="2" Grid.Column="0" />
+                    <TextBox Text="{Binding Path=MiddleName}" Grid.Row="2" Grid.Column="1" />
+
+                    <Label Content="Дата рождения" Grid.Row="3" Grid.Column="0" />
+                    <DatePicker SelectedDate="{Binding Path=Birthday}" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" />
+                </Grid>
                 
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Label Content="Фамилия" Grid.Row="0" Grid.Column="0" />
-                <TextBox Text="{Binding Path=LastName}" Grid.Row="0" Grid.Column="1" />
-
-                <Label Content="Имя" Grid.Row="1" Grid.Column="0" />
-                <TextBox Text="{Binding Path=FirstName}" Grid.Row="1" Grid.Column="1" />
-
-                <Label Content="Отчество" Grid.Row="2" Grid.Column="0" />
-                <TextBox Text="{Binding Path=MiddleName}" Grid.Row="2" Grid.Column="1" />
-
-                <Label Content="Дата рождения" Grid.Row="3" Grid.Column="0" />
-                <DatePicker SelectedDate="{Binding Path=Birthday}" Grid.Row="3" Grid.Column="1" />
-            </Grid>
+                <UniformGrid Rows="1" Columns="2" HorizontalAlignment="Left" Margin="0,8,0,0" Grid.Row="5" Grid.ColumnSpan="2">
+                    <Button Content="Сохранить" Command="{Binding Path=SaveCommand}" Margin="8,0"/>
+                    <Button Content="Отменить" />
+                </UniformGrid>
+            </StackPanel>
         </GroupBox>
     </StackPanel>
 </Window>
