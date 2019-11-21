@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataAccess\RepositoryBase.cs" />
+    <Compile Include="DataAccess\StudentRepository.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Notifier.cs" />

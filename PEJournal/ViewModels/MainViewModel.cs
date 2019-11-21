@@ -1,4 +1,5 @@
-﻿using PEJournal.Models;
+﻿using PEJournal.DataAccess;
+using PEJournal.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ namespace PEJournal.ViewModels
 {
     public class MainViewModel : Notifier
     {
+        private StudentRepository studentRepository;
         public ObservableCollection<Student> Students { get; set; }
 
         private Student selectedStudent;
@@ -25,12 +27,8 @@ namespace PEJournal.ViewModels
         }
         public MainViewModel()
         {
-            Students = new ObservableCollection<Student>
-            {
-                new Student { Id = 1, FirstName = "Александр", LastName = "Лужков", MiddleName = "Иванович" },
-                new Student { Id = 2, FirstName = "Андрей", LastName = "Колотаев", MiddleName = "Кириллович" },
-                new Student { Id = 3, FirstName = "Юрий", LastName = "Кижиков", MiddleName = "Витальевич" }
-            };
+            studentRepository = new StudentRepository();
+            Students = new ObservableCollection<Student>(studentRepository.GetAll());
         }
     }
 }
