@@ -73,7 +73,7 @@
                     
                     <Button Content="Сохранить" Command="{Binding Path=SaveCommand}" />
                     <Button Content="Удалить" Command="{Binding Path=DeleteCommand}" />
-                    <Button Content="Отменить" />
+                    <Button Content="Отменить" Command="{Binding Path=CancelCommand}" />
                 </UniformGrid>
             </StackPanel>
         </GroupBox>

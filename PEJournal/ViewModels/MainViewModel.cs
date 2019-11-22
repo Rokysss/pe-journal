@@ -58,6 +58,16 @@ namespace PEJournal.ViewModels
             }
         }
 
+        private ICommand cancelCommand;
+        public ICommand CancelCommand
+        {
+            get
+            {
+                return cancelCommand ??
+                    (cancelCommand = new RelayCommand(_ => CancelEditing()));
+            }
+        }
+
         public MainViewModel()
         {
             studentRepository = new StudentRepository();
@@ -105,6 +115,11 @@ namespace PEJournal.ViewModels
                 studentRepository.Delete(SelectedStudent.Id);
                 UpdateStudents();
             }
+        }
+
+        private void CancelEditing()
+        {
+            SelectedStudent = null;
         }
     }
 }
