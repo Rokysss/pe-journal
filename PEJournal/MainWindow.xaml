@@ -63,8 +63,16 @@
                     <DatePicker SelectedDate="{Binding Path=Birthday}" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" />
                 </Grid>
                 
-                <UniformGrid Rows="1" Columns="2" HorizontalAlignment="Left" Margin="0,8,0,0" Grid.Row="5" Grid.ColumnSpan="2">
-                    <Button Content="Сохранить" Command="{Binding Path=SaveCommand}" Margin="8,0"/>
+                <UniformGrid Columns="3" HorizontalAlignment="Left" Margin="0,8,0,0" Grid.Row="5" Grid.ColumnSpan="2">
+                    
+                    <UniformGrid.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Margin" Value="4,0" />
+                        </Style>
+                    </UniformGrid.Resources>
+                    
+                    <Button Content="Сохранить" Command="{Binding Path=SaveCommand}" />
+                    <Button Content="Удалить" Command="{Binding Path=DeleteCommand}" />
                     <Button Content="Отменить" />
                 </UniformGrid>
             </StackPanel>

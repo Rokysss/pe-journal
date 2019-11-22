@@ -33,26 +33,9 @@ namespace PEJournal.ViewModels
             get { return selectedStudent; }
             set
             {
-                selectedStudent = (Student)value.Clone();
+                selectedStudent = (Student)value?.Clone();
                 NotifyPropertyChanged("SelectedStudent");
             }
-        }
-
-        public MainViewModel()
-        {
-            studentRepository = new StudentRepository();
-            UpdateStudents();
-            CreateBlankStudent();
-        }
-
-        private void UpdateStudents()
-        {
-            Students = new ObservableCollection<Student>(studentRepository.GetAll());
-        }
-
-        private void CreateBlankStudent()
-        {
-            Students.Add(Student.CreateBlank());
         }
 
         private ICommand saveCommand;
@@ -61,27 +44,66 @@ namespace PEJournal.ViewModels
             get
             {
                 return saveCommand ??
-                    (saveCommand = new RelayCommand(_ => SaveStudent()));
+                    (saveCommand = new RelayCommand(_ => SaveSelectedStudent()));
             }
         }
 
-        private void SaveStudent()
+        private ICommand deleteCommand;
+        public ICommand DeleteCommand
         {
-            Student newStudent = SelectedStudent;
-            if(newStudent.IsBlank)
+            get
             {
-                studentRepository.Create(newStudent);
-                UpdateStudents();
-                CreateBlankStudent();
+                return deleteCommand ??
+                    (deleteCommand = new RelayCommand(_ => DeleteSelectedStudent()));
             }
-            else
+        }
+
+        public MainViewModel()
+        {
+            studentRepository = new StudentRepository();
+            UpdateStudents();
+        }
+
+        private void UpdateStudents()
+        {
+            Students = new ObservableCollection<Student>(studentRepository.GetAll());
+            CreateBlankStudent();
+        }
+
+        private void CreateBlankStudent()
+        {
+            Students.Add(Student.CreateBlank());
+        }
+
+        private void SaveSelectedStudent()
+        {
+            if(SelectedStudent != null)
             {
-                Student oldStudent = Students.First(student => student.Id == newStudent.Id);
-                if (!oldStudent.Equals(newStudent))
+                Student newStudent = SelectedStudent;
+                if (newStudent.IsBlank)
                 {
-                    studentRepository.Update(SelectedStudent);
+                    studentRepository.Create(newStudent);
                     UpdateStudents();
+                    CreateBlankStudent();
                 }
+                else
+                {
+                    Student oldStudent = Students.First(student => student.Id == newStudent.Id);
+                    if (!oldStudent.Equals(newStudent))
+                    {
+                        studentRepository.Update(SelectedStudent);
+                        UpdateStudents();
+                    }
+                }
+            }
+        }
+
+        private void DeleteSelectedStudent()
+        {
+            if(SelectedStudent != null)
+            {
+                studentRepository.Delete(SelectedStudent.Id);
+                UpdateStudents();
             }
         }
     }

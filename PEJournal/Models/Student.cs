@@ -53,7 +53,7 @@ namespace PEJournal.Models
             }
         }
 
-        public bool IsBlank { get; set; } = false;
+        public bool IsBlank { get; private set; } = false;
 
         public static Student CreateBlank()
         {
