@@ -19,7 +19,7 @@
         <GroupBox Header="Обучающиеся">
             <DataGrid ItemsSource="{Binding Path=Students, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"
                       SelectedItem="{Binding Path=SelectedStudent, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-                      CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="Column">
+                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" HeadersVisibility="Column">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ФИО" Binding="{Binding Path=FullName}" IsReadOnly="True" Width="*" />
                     <DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=Birthday}" IsReadOnly="True" Width="*" />
@@ -63,7 +63,7 @@
                     <DatePicker SelectedDate="{Binding Path=Birthday}" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" />
                 </Grid>
                 
-                <UniformGrid Columns="3" HorizontalAlignment="Left" Margin="0,8,0,0" Grid.Row="5" Grid.ColumnSpan="2">
+                <UniformGrid Columns="3" HorizontalAlignment="Right" Margin="0,8,0,0" Grid.Row="5" Grid.ColumnSpan="2">
                     
                     <UniformGrid.Resources>
                         <Style TargetType="Button">

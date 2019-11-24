@@ -53,11 +53,26 @@ namespace PEJournal.Models
             }
         }
 
-        public bool IsBlank { get; private set; } = false;
+        private const int BLANK_ID = -1;
 
         public static Student CreateBlank()
         {
-            return new Student { IsBlank = true };
+            return new Student { Id = BLANK_ID };
+        }
+
+        public bool IsBlank()
+        {
+            return (Id == BLANK_ID);
+        }
+
+        public Student Update(Student updated)
+        {
+            Id = updated.Id;
+            FirstName = updated.FirstName;
+            LastName = updated.LastName;
+            MiddleName = updated.MiddleName;
+            Birthday = updated.Birthday;
+            return this;
         }
 
         public object Clone()

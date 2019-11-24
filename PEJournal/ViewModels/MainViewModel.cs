@@ -89,17 +89,15 @@ namespace PEJournal.ViewModels
         {
             if(SelectedStudent != null)
             {
-                Student newStudent = SelectedStudent;
-                if (newStudent.IsBlank)
+                if (SelectedStudent.IsBlank())
                 {
-                    studentRepository.Create(newStudent);
+                    studentRepository.Create(SelectedStudent);
                     UpdateStudents();
-                    CreateBlankStudent();
                 }
                 else
                 {
-                    Student oldStudent = Students.First(student => student.Id == newStudent.Id);
-                    if (!oldStudent.Equals(newStudent))
+                    Student oldStudent = Students.First(student => student.Id == SelectedStudent.Id);
+                    if (!oldStudent.Equals(SelectedStudent))
                     {
                         studentRepository.Update(SelectedStudent);
                         UpdateStudents();
@@ -112,7 +110,7 @@ namespace PEJournal.ViewModels
         {
             if(SelectedStudent != null)
             {
-                studentRepository.Delete(SelectedStudent.Id);
+                studentRepository.Delete(SelectedStudent);
                 UpdateStudents();
             }
         }
