@@ -1,13 +1,7 @@
 ﻿using PEJournal.DataAccess;
 using PEJournal.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace PEJournal.ViewModels
@@ -87,7 +81,7 @@ namespace PEJournal.ViewModels
 
         private void SaveSelectedStudent()
         {
-            if(SelectedStudent != null)
+            if (SelectedStudent != null)
             {
                 if (SelectedStudent.IsBlank())
                 {
@@ -108,9 +102,9 @@ namespace PEJournal.ViewModels
 
         private void DeleteSelectedStudent()
         {
-            if(SelectedStudent != null)
+            if (SelectedStudent != null)
             {
-                studentRepository.Delete(SelectedStudent);
+                studentRepository.Delete(SelectedStudent.Id);
                 UpdateStudents();
             }
         }

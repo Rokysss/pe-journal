@@ -1,11 +1,6 @@
 ﻿using PEJournal.Models;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace PEJournal.DataAccess
 {
@@ -30,9 +25,9 @@ namespace PEJournal.DataAccess
             Save();
         }
 
-        public override void Delete(Student student)
+        public override void Delete(int id)
         {
-            db.Students.Remove(student);
+            db.Students.Remove(db.Students.Find(id));
             Save();
         }
     }
