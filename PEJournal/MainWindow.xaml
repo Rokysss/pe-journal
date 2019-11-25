@@ -29,40 +29,145 @@
 
         <GroupBox Header="Параметры обучающегося">
             <StackPanel>
-                <Grid DataContext="{Binding Path=EditedStudent}">
-
-                    <Grid.Resources>
+                <TabControl DataContext="{Binding Path=EditedStudent}">
+                    <TabControl.Resources>
                         <Style TargetType="TextBox">
                             <Setter Property="VerticalAlignment" Value="Center" />
                         </Style>
-                    </Grid.Resources>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </TabControl.Resources>
+                    
+                    <TabItem Header="Основные параметры">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                            <Label Content="Фамилия" Grid.Row="0" Grid.Column="0" />
+                            <TextBox Text="{Binding Path=LastName}" Grid.Row="0" Grid.Column="1" />
 
-                    <Label Content="Фамилия" Grid.Row="0" Grid.Column="0" />
-                    <TextBox Text="{Binding Path=LastName}" Grid.Row="0" Grid.Column="1" />
+                            <Label Content="Имя" Grid.Row="1" Grid.Column="0" />
+                            <TextBox Text="{Binding Path=FirstName}" Grid.Row="1" Grid.Column="1" />
 
-                    <Label Content="Имя" Grid.Row="1" Grid.Column="0" />
-                    <TextBox Text="{Binding Path=FirstName}" Grid.Row="1" Grid.Column="1" />
+                            <Label Content="Отчество" Grid.Row="2" Grid.Column="0" />
+                            <TextBox Text="{Binding Path=MiddleName}" Grid.Row="2" Grid.Column="1" />
 
-                    <Label Content="Отчество" Grid.Row="2" Grid.Column="0" />
-                    <TextBox Text="{Binding Path=MiddleName}" Grid.Row="2" Grid.Column="1" />
+                            <Label Content="Дата рождения" Grid.Row="3" Grid.Column="0" />
+                            <DatePicker SelectedDate="{Binding Path=Birthday}" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" />
+                        </Grid>
+                    </TabItem>
 
-                    <Label Content="Дата рождения" Grid.Row="3" Grid.Column="0" />
-                    <DatePicker SelectedDate="{Binding Path=Birthday}" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" />
-                </Grid>
-                
+                    <TabItem Header="Прочие параметры">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Content="Рост" Grid.Row="0" Grid.Column="0" />
+                            <TextBox Grid.Row="0" Grid.Column="1" />
+
+                            <Label Content="Вес" Grid.Row="1" Grid.Column="0" />
+                            <TextBox Grid.Row="1" Grid.Column="1" />
+
+                            <Label Content="Тип темперамента" Grid.Row="2" Grid.Column="0" />
+                            <ComboBox Grid.Row="2" Grid.Column="1">
+                                <TextBlock Text="Холерик" />
+                                <TextBlock Text="Сангвиник" />
+                                <TextBlock Text="Флегматик" />
+                                <TextBlock Text="Меланхолик" />
+                            </ComboBox>
+
+                            <Label Content="Группа здоровья" Grid.Row="3" Grid.Column="0" />
+                            <ComboBox Grid.Row="3" Grid.Column="1">
+                                <TextBlock Text="Первая" />
+                                <TextBlock Text="Вторая" />
+                                <TextBlock Text="Третья" />
+                                <TextBlock Text="Червёртая" />
+                                <TextBlock Text="Пятая" />
+                            </ComboBox>
+
+                            <Label Content="Физическая подготовленность" Grid.Row="4" Grid.Column="0" />
+                            <ComboBox Grid.Row="4" Grid.Column="1">
+                                <TextBlock Text="Высокая" />
+                                <TextBlock Text="Средняя" />
+                                <TextBlock Text="Низкая" />
+                            </ComboBox>
+
+                            <Label Content="Характер двигательной активности" Grid.Row="5" Grid.Column="0" />
+                            <ComboBox Grid.Row="5" Grid.Column="1">
+                                <TextBlock Text="Сверхподвижный" />
+                                <TextBlock Text="Подвижный" />
+                                <TextBlock Text="Средней подвижности" />
+                                <TextBlock Text="Малоподвижный" />
+                            </ComboBox>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="Результаты зачётов">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label Content="Челночный бег 3x10 (сек.)" Grid.Row="0" Grid.Column="0" />
+                            <Label Content="На начало года" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" />
+                            <TextBox Grid.Row="0" Grid.Column="2" />
+                            <Label Content="На конец года" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="3" />
+                            <TextBox Grid.Row="0" Grid.Column="4" />
+
+                            <Label Content="Прыжок в длинну с места (см.)" Grid.Row="1" Grid.Column="0" />
+                            <Label Content="На начало года" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" />
+                            <TextBox Grid.Row="1" Grid.Column="2" />
+                            <Label Content="На конец года" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="3" />
+                            <TextBox Grid.Row="1" Grid.Column="4" />
+
+                            <Label Content="Бег 30 метров (сек.)" Grid.Row="2" Grid.Column="0" />
+                            <Label Content="На начало года" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" />
+                            <TextBox Grid.Row="2" Grid.Column="2" />
+                            <Label Content="На конец года" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="3" />
+                            <TextBox Grid.Row="2" Grid.Column="4" />
+
+                            <Label Content="Метание мяча 1 килограмм (м.)" Grid.Row="3" Grid.Column="0" />
+                            <Label Content="На начало года" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1" />
+                            <TextBox Grid.Row="3" Grid.Column="2" />
+                            <Label Content="На конец года" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="3" />
+                            <TextBox Grid.Row="3" Grid.Column="4" />
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+
                 <UniformGrid Columns="3" HorizontalAlignment="Right" Margin="0,8,0,0" Grid.Row="5" Grid.ColumnSpan="2">
                     
                     <UniformGrid.Resources>
