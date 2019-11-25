@@ -20,14 +20,14 @@ namespace PEJournal
             this.canExecute = canExecute;
         }
 
-        public void Execute(object parameter)
-        {
-            execute(parameter);
-        }
-
         public bool CanExecute(object parameter)
         {
             return canExecute == null || canExecute(parameter);
+        }
+
+        public void Execute(object parameter)
+        {
+            execute(parameter);
         }
     }
 }

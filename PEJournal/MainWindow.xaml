@@ -17,8 +17,8 @@
         </StackPanel.Resources>
         
         <GroupBox Header="Обучающиеся">
-            <DataGrid ItemsSource="{Binding Path=Students, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"
-                      SelectedItem="{Binding Path=SelectedStudent, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+            <DataGrid ItemsSource="{Binding Path=Students}" AutoGenerateColumns="False"
+                      SelectedItem="{Binding Path=SelectedStudent}" SelectionMode="Single"
                       CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" HeadersVisibility="Column">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ФИО" Binding="{Binding Path=FullName}" IsReadOnly="True" Width="*" />
@@ -29,7 +29,7 @@
 
         <GroupBox Header="Параметры обучающегося">
             <StackPanel>
-                <Grid DataContext="{Binding Path=SelectedStudent}">
+                <Grid DataContext="{Binding Path=EditedStudent}">
 
                     <Grid.Resources>
                         <Style TargetType="TextBox">

@@ -27,8 +27,20 @@ namespace PEJournal.ViewModels
             get { return selectedStudent; }
             set
             {
-                selectedStudent = (Student)value?.Clone();
+                selectedStudent = value;
+                EditedStudent = (Student)value?.Clone();
                 NotifyPropertyChanged("SelectedStudent");
+            }
+        }
+
+        private Student editedStudent;
+        public Student EditedStudent
+        {
+            get { return editedStudent; }
+            set
+            {
+                editedStudent = value;
+                NotifyPropertyChanged("EditedStudent");
             }
         }
 
@@ -37,8 +49,10 @@ namespace PEJournal.ViewModels
         {
             get
             {
-                return saveCommand ??
-                    (saveCommand = new RelayCommand(_ => SaveSelectedStudent()));
+                return saveCommand ?? (
+                    saveCommand = new RelayCommand(
+                        _ => SaveEditedStudent(),
+                        _ => CanSaveEditedStudent()));
             }
         }
 
@@ -48,7 +62,9 @@ namespace PEJournal.ViewModels
             get
             {
                 return deleteCommand ??
-                    (deleteCommand = new RelayCommand(_ => DeleteSelectedStudent()));
+                    (deleteCommand = new RelayCommand(
+                        _ => DeleteSelectedStudent(),
+                        _ => CanDeleteSelectedStudent()));
             }
         }
 
@@ -58,7 +74,9 @@ namespace PEJournal.ViewModels
             get
             {
                 return cancelCommand ??
-                    (cancelCommand = new RelayCommand(_ => CancelEditing()));
+                    (cancelCommand = new RelayCommand(
+                        _ => CancelEditing(),
+                        _ => CanCancelEditing()));
             }
         }
 
@@ -79,25 +97,33 @@ namespace PEJournal.ViewModels
             Students.Add(Student.CreateBlank());
         }
 
-        private void SaveSelectedStudent()
+        private void SaveEditedStudent()
         {
-            if (SelectedStudent != null)
+            if (EditedStudent != null)
             {
-                if (SelectedStudent.IsBlank())
+                if (EditedStudent.IsBlank())
                 {
-                    studentRepository.Create(SelectedStudent);
+                    studentRepository.Create(EditedStudent);
                     UpdateStudents();
                 }
                 else
                 {
-                    Student oldStudent = Students.First(student => student.Id == SelectedStudent.Id);
-                    if (!oldStudent.Equals(SelectedStudent))
+                    if (!EditedStudent.Equals(SelectedStudent))
                     {
-                        studentRepository.Update(SelectedStudent);
+                        studentRepository.Update(EditedStudent);
                         UpdateStudents();
                     }
                 }
             }
+        }
+
+        private bool CanSaveEditedStudent()
+        {
+            if (EditedStudent == null) return false;
+            if (EditedStudent.Equals(SelectedStudent)) return false;
+            if (string.IsNullOrEmpty(EditedStudent.FirstName)) return false;
+            if (string.IsNullOrEmpty(EditedStudent.LastName)) return false;
+            return true;
         }
 
         private void DeleteSelectedStudent()
@@ -109,9 +135,19 @@ namespace PEJournal.ViewModels
             }
         }
 
+        private bool CanDeleteSelectedStudent()
+        {
+            return SelectedStudent != null;
+        }
+
         private void CancelEditing()
         {
             SelectedStudent = null;
+        }
+
+        private bool CanCancelEditing()
+        {
+            return SelectedStudent != null;
         }
     }
 }
